@@ -42,28 +42,28 @@ declare -r MUTE=$'\x80' # Middle of the scale = No volume (\x00 would also be ma
 # it's not really noticable to the untrained ear.
 
 # Notes in hertz
-declare -r c0=65
-declare -r d0=73
-declare -r eb0=78
-declare -r f0=87
-declare -r g0=98
-declare -r ab0=104
+declare -r c0=65.40639
+declare -r d0=73.41619
+declare -r eb0=77.78175
+declare -r f0=87.30706
+declare -r g0=97.99886
+declare -r ab0=103.8262
 declare -r a0=110
-declare -r bb0=117
-declare -r b0=123
-declare -r c=131
-declare -r d=147
-declare -r eb=156
-declare -r e=165
-declare -r f=175
-declare -r g=196
-declare -r ab=208
+declare -r bb0=116.5409
+declare -r b0=123.4708
+declare -r c=130.8128
+declare -r d=146.8324
+declare -r eb=155.5635
+declare -r e=164.8138
+declare -r f=174.6141
+declare -r g=195.9977
+declare -r ab=207.6523
 declare -r a=220
-declare -r bb=233
-declare -r b=247
-declare -r c2=262
-declare -r d2=294
-declare -r eb2=311
+declare -r bb=233.0819
+declare -r b=246.9417
+declare -r c2=261.6256
+declare -r d2=293.6648
+declare -r eb2=311.1270
 declare -r s=7999 # Silence
 
 # Note durations ha = half, qu = quarter, et.c.
@@ -75,7 +75,7 @@ declare -r si=1
 declare -r ss=0 # Will be translated to a very short non-zero duration.
 
 function note { # $1 = pitch (Hz) $2 = duration (bytes)
-	mute_bytes_num=$(($FPS / $1 - 1))
+	mute_bytes_num=$(echo "$FPS / $1 - 1" | bc)
 	note_bytes="$VOLUME`yes $MUTE | tr -d '\n' | head -c $mute_bytes_num`" # Create 1 oxxx...-sequence
 	yes $note_bytes | tr -d '\n' | head -c $2 # Create as many bytes of concatenated sequences as needed.
 }

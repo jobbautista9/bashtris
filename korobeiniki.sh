@@ -115,7 +115,9 @@ while true ; do
 	# (This may cause the tune to play until finished, then stop even if script is killed.)
 	if [ -z $PLAYBACK_METHOD ] ; then
 		( echo -n "$cr_tune_a$cr_tune_a$cr_tune_b" | aplay ) &>/dev/null &
+		( echo -n "$cr_tune_a$cr_tune_a$cr_tune_b" | aplay ) &>/dev/null &
 	else
+		( echo -n "$cr_tune_a$cr_tune_a$cr_tune_b" > $PLAYBACK_METHOD ) &>/dev/null &
 		( echo -n "$cr_tune_a$cr_tune_a$cr_tune_b" > $PLAYBACK_METHOD ) &>/dev/null &
 	fi
 	wait
